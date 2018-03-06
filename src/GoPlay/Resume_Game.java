@@ -38,81 +38,12 @@ public class Resume_Game {
 		driver.findElement(By.id("com.goplaybook:id/iv_profile")).click();
 		driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"My Matches\").instance(0))")).click();
 		driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"Resume\").instance(0))")).click();
-	//16th over	
-		ScoringKeys.one(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.two(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.zero(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.zero(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.two(driver).click();
-		Thread.sleep(5000);
-		File file16 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(file16, new File("/home/aj/Desktop/appiumScreen/1st_inning/16.png"));
-		//change over
-		ScoringKeys.changeOver(driver, "Scott Boland").click();
+	
 		
-	//17th over
-		ScoringKeys.three(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.one(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.one(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.six(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.zero(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.four(driver).click();
-		Thread.sleep(5000);
-		File file17 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(file17, new File("/home/aj/Desktop/appiumScreen/1st_inning/17.png"));
-		//change over
-		ScoringKeys.changeOver(driver, "John Hastings").click();
-		
-	//18th over
-		ScoringKeys.legBye(driver, "1").click();
-		Thread.sleep(5000);
-		ScoringKeys.zero(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.noBallFromBat(driver, "6").click();
-		Thread.sleep(5000);
-		ScoringKeys.four(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.one(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.zero(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.two(driver).click();
-		Thread.sleep(5000);
-		File file18 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(file18, new File("/home/aj/Desktop/appiumScreen/1st_inning/18.png"));
-		//change over
-		ScoringKeys.changeOver(driver, "Scott Boland").click();
-				
-	//19th over
-		ScoringKeys.one(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.six(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.one(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.one(driver).click();
-		Thread.sleep(5000);
-		ScoringKeys.caughtOut(driver, "Kevin Pietersen", "Mark Steketee", "Mark Steketee").click();
-		Thread.sleep(5000);
-		ScoringKeys.zero(driver).click();
-		Thread.sleep(5000);
-		File file19 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(file19, new File("/home/aj/Desktop/appiumScreen/1st_inning/19.png"));
-		//change over
-		ScoringKeys.changeOver(driver, "Marcus Stoinis").click();
 			
 	//20th over
-		ScoringKeys.four(driver).click();
-		Thread.sleep(5000);
+		//ScoringKeys.four(driver).click();
+		//Thread.sleep(5000);
 		ScoringKeys.one(driver).click();
 		Thread.sleep(5000);
 		ScoringKeys.caughtOut(driver, "Evan Gulbis", "Shadab Khan", "Ben Cutting").click();
@@ -158,7 +89,7 @@ public class Resume_Game {
 		Inning_2.inning(driver);
 		WebElement over=driver.findElement(By.id("com.goplaybook:id/tv_currentOverBall"));
 		String current_overs= over.getText();
-		int oversNumber = Integer.parseInt(current_overs);
+		int oversNumber = Integer.parseInt(current_overs.trim());
 		for(int i=oversNumber;i>=0;i--)
 		{
 		if(oversNumber!=0)

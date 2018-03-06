@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.AppiumDriver;
@@ -16,16 +17,10 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidKeyCode;
-import io.appium.java_client.service.local.AppiumDriverLocalService;
-import io.appium.java_client.service.local.AppiumServiceBuilder;
 
-public class Match_20_Overs {
-	static AppiumDriverLocalService appiumService; 
-	static String appiumServiceUrl;
+public class Match_of_tournament {
 	public static void main(String[] args) throws InterruptedException, IOException {
-		AppiumServiceBuilder builder = new AppiumServiceBuilder().withAppiumJS(new File("/usr/lib/node_modules/appium/build/lib/main.js")); 
-		appiumService = builder.build(); 
-		appiumService.start();
+
 		DesiredCapabilities caps = new DesiredCapabilities();
 		caps.setCapability("deviceName", "My Phone");
 		//caps.setCapability("udid", "674862d4"); //Give Device ID of your mobile phone
@@ -42,19 +37,16 @@ public class Match_20_Overs {
 		
 		driver.findElement(By.id("com.goplaybook:id/exploreFabBtn")).click();
 		driver.findElement(By.id("com.goplaybook:id/startGameRL")).click();
-		driver.findElement(By.id("com.goplaybook:id/rl_pickTeamA")).click();
+		driver.findElement(By.id("com.goplaybook:id/tounamentMatchTV")).click();
+		Thread.sleep(10000);
+		driver.findElement(By.xpath("//*[@text='MATCH ID']")).sendKeys("237869");
 		Thread.sleep(5000);
-		driver.findElement(By.id("com.goplaybook:id/et_search")).sendKeys("melbourne");
+		try {
+			((AppiumDriver) driver).hideKeyboard();
+			}catch (Exception e) {
+            }
+		driver.findElement(By.id("com.goplaybook:id/tv_confirm")).click();
 		Thread.sleep(5000);
-		driver.findElement(By.id("com.goplaybook:id/tv_name")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.id("com.goplaybook:id/rl_pickTeamB")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.id("com.goplaybook:id/et_search")).sendKeys("bris");
-		Thread.sleep(5000);
-		driver.findElement(By.id("com.goplaybook:id/tv_name")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.id("com.goplaybook:id/rightLL")).click();
 		
 		//Team A players selection
 		driver.findElement(By.xpath("//android.widget.LinearLayout[@index='0']"));
@@ -99,12 +91,9 @@ public class Match_20_Overs {
             } catch (Exception e) {
             }
 		driver.findElement(By.id("com.goplaybook:id/tv_location")).click();
-//		driver.findElement(By.xpath("//*[@text='Search Grounds Here']")).sendKeys("Chopraas Place");
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("//android.widget.TextView[@text='Chopraas Place']")).click();
-		driver.findElement(By.xpath("//*[@text='Search Grounds Here']")).sendKeys("Demo");
+		driver.findElement(By.xpath("//*[@text='Search Grounds Here']")).sendKeys("Chopraas Place");
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//android.widget.TextView[@text='Demo']")).click();
+		driver.findElement(By.xpath("//android.widget.TextView[@text='Chopraas Place']")).click();
 		driver.findElement(By.id("com.goplaybook:id/rightLL")).click();
 		//Batting team selection
 		driver.findElement(By.id("com.goplaybook:id/tv_teamB")).click();
@@ -159,27 +148,19 @@ public class Match_20_Overs {
 				
 			//2nd inning
 				Inning_2.inning(driver);
-				for(int i=0;i<=15;i++)
+				WebElement over=driver.findElement(By.id("com.goplaybook:id/tv_currentOverBall"));
+				String current_overs= over.getText();
+				int oversNumber = Integer.parseInt(current_overs);
+				for(int i=oversNumber;i>=0;i--)
+				{
+				if(oversNumber!=0)
 				{
 					ScoringKeys.undo(driver);
-					File undo = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-					FileUtils.copyFile(undo, new File("/home/aj/Desktop/appiumScreen/undo"+i+".png"));
+					Thread.sleep(5000);
 				}
-				appiumService.stop();
-//				WebElement over=driver.findElement(By.id("com.goplaybook:id/tv_currentOverBall"));
-//				String current_overs= over.getText();
-//				int oversNumber = Integer.parseInt(current_overs);
-//				for(int i=oversNumber;i>=0;i--)
-//				{
-//				if(oversNumber!=0)
-//				{
-//					ScoringKeys.undo(driver);
-//					Thread.sleep(5000);
-//				}
-//				File undo = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//				FileUtils.copyFile(undo, new File("/home/aj/Desktop/appiumScreen/undo.png"));
-//				}
+				File undo = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+				FileUtils.copyFile(undo, new File("/home/aj/Desktop/appiumScreen/undo.png"));
+				}
 		}
-	}
 
-
+}
